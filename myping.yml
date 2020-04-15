@@ -1,5 +1,5 @@
 ---
 - hosts: all
-  tasks:
-- name: ping into all nodes
-  ping:  
+  tasks: 
+  - name: ping into all nodes
+    ping:
