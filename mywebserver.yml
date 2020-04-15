@@ -10,4 +10,4 @@
   - name: start the apache2 service
     service:
      name: apache2
-     state: present  
+     state: started  
