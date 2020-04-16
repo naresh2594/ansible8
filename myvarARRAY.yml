@@ -1,0 +1,9 @@
+---
+- hosts: webservers
+  become: yes
+  vars:
+    myvar: {naresh,pavan,harish,suresh,mahesh,vijay,vamshi}
+  tasks:
+  - name: display all myvar
+    debug: var=myvar[inventory_variablename]
+      msg: "{{myvar}}""    
