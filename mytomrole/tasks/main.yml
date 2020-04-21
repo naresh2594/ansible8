@@ -1,16 +1,19 @@
 ---
 # tasks file for mytomrole
+- include_tasks: mytominstall.yml
 - name: install tomcat
   yum:
    name: tomcat
    state: present
 
+- include_tasks: mytomstart.yml
 - name:  copy tom config file into all nodes
   template:
    src:  templates/mytomconfig.j2
    dest: /usr/share/tomcat/conf/tomcat.conf
   notify: starttomcat
 
+- include_tasks: mytomadmin.yml
 - name:  Install Admin Packages
   yum:
    name: "{{ item }}"
@@ -18,12 +21,15 @@
   with_items:
     - tomcat-webapps
     - tomcat-admin-webapps
+
+- include_tasks: mytomrestart.yml    
 - name: copy tom user file into all nodes
   template:
    src: templates/mytomuser.j2
    dest: /usr/share/tomcat/conf/tomcat-users.xml
   notify: restarttomcat
 
+- include_tasks: mytomdeploy.yml
 - name: i want to deploy ravi java war file into webapps  
   get_url:
    url: https://raviwebapp.s3.amazonaws.com/raviLogin.war
