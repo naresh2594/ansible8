@@ -1,2 +1,16 @@
 ---
 # handlers file for myubunturole
+- name: starttomcat8
+  service:
+   name: tomcat8
+   state: started
+
+- name: restarttomcat8
+  service:
+   name: tomcat8
+   state: restarted
+
+- name: restarttomcat8
+  service:
+   name: tomcat8
+   state: restarted  

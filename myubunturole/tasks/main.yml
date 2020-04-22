@@ -1,39 +1,39 @@
 ---
 # tasks file for myubunturole
-- name: install tomcat
+- name: install tomcat8
   apt:
    name: tomcat8
    state: present
+
 - name: tomcat8 status
   service: 
    name: tomcat8
    state: present
+  notify: start
 
-- name: Go to the folder and execute command
-  command: chdir= /var/lib/tomcat8/conf
-  
-- name:  copy tom config file into all nodes
+- name:  copy myubuntuconfig file into all nodes
   template:
-   src:  templates/mytomconfig.j2
-   dest: /usr/share/tomcat/conf/tomcat.conf
-  notify: starttomcat
-
-- name:  Install Admin Packages
-  yum:
-   name: "{{ item }}"
-   state: present
-  with_items:
-    - tomcat-webapps
-    - tomcat-admin-webapps
+   src:  templates/myubuntuconfig.j2
+   dest: /var/lib/tomcat8/conf/server.xml
     
-- name: copy tom user file into all nodes
+- name: copy ubuntu user file into all nodes
   template:
-   src: templates/mytomuser.j2
-   dest: /usr/share/tomcat/conf/tomcat-users.xml
-  notify: restarttomcat
+   src: templates/myubuntuuser.j2
+   dest: /var/lib/tomcat8/conf/tomcat-users.xml
+  notify: restart tomcat8
 
-- name: i want to deploy ravi java war file into webapps  
-  get_url:
-   url: https://raviwebapp.s3.amazonaws.com/raviLogin.war
-   dest: /usr/share/tomcat/webapps/raviLogin.war
-   force_basic_auth: yes
+- name: install tomcat8-docs
+  apt:
+   name: tomcat8-docs
+   state: present
+
+- name: install tomcat8-examples
+  apt:
+   name: tomcat8-examples
+   state: present
+
+- name: install tomcat8-admin
+  apt:
+   name: tomcat8-admin
+   state: present
+  notify: restart tomcat8
