@@ -2,4 +2,4 @@
 - hosts: ubuntos
   become: yes
   roles:
-    - {role: myubunturole, when: ansible_os_family =="debain"}
+    - {role: myubunturole}
