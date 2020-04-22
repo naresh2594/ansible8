@@ -8,8 +8,7 @@
 - name: tomcat8 status
   service: 
    name: tomcat8
-   state: present
-  notify: start
+   state: active
 
 - name:  copy myubuntuconfig file into all nodes
   template:
